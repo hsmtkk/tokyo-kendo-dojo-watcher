@@ -36,7 +36,7 @@ export class TokyoKendoDojoWatcherStack extends cdk.Stack {
     });
 
     const schedule = new scheduler.Schedule(this, "Schedule", {
-      schedule: scheduler.ScheduleExpression.rate(cdk.Duration.minutes(5)),
+      schedule: scheduler.ScheduleExpression.rate(cdk.Duration.hours(1)),
       target: new scheduler_targets.LambdaInvoke(func),
     });
 
