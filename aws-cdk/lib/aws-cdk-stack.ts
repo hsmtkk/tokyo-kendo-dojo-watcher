@@ -1,5 +1,7 @@
 import * as cdk from 'aws-cdk-lib/core';
 import { Construct } from 'constructs';
+import * as cloudwatch from 'aws-cdk-lib/aws-cloudwatch';
+import * as cloudwatch_actions from 'aws-cdk-lib/aws-cloudwatch-actions';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as s3 from 'aws-cdk-lib/aws-s3';
 import * as scheduler from 'aws-cdk-lib/aws-scheduler';
@@ -43,5 +45,20 @@ export class TokyoKendoDojoWatcherStack extends cdk.Stack {
 
     bucket.grantReadWrite(func);
     topic.grantPublish(func);
+
+    const alarm = new cloudwatch.Alarm(this, "Alarm", {
+      comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_THRESHOLD,
+      datapointsToAlarm: 3,
+      evaluationPeriods: 3,
+      metric: func.metricErrors({
+        period: cdk.Duration.hours(1),
+        statistic: "Sum",
+      }),
+      threshold: 0,
+      treatMissingData: cloudwatch.TreatMissingData.BREACHING,
+    });
+
+    alarm.addAlarmAction(new cloudwatch_actions.SnsAction(topic));
+    alarm.addOkAction(new cloudwatch_actions.SnsAction(topic));
   }
 }
