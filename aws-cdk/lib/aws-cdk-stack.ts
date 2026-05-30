@@ -33,6 +33,7 @@ export class TokyoKendoDojoWatcherStack extends cdk.Stack {
       handler: "index.handler",
       loggingFormat: lambda.LoggingFormat.JSON,
       runtime: lambda.Runtime.PYTHON_3_14,
+      timeout: cdk.Duration.seconds(10),
     });
 
     const schedule = new scheduler.Schedule(this, "Schedule", {
