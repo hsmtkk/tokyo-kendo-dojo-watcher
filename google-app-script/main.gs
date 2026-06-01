@@ -64,7 +64,7 @@ function postToBand(content) {
     return;
   }
 
-  const url = 'https://openapi.band.us/v2/band/post/create';
+  const url = 'https://openapi.band.us/v2.2/band/post/create';
   const payload = {
     access_token: accessToken,
     band_key: bandKey,

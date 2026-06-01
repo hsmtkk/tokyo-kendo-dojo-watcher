@@ -30,7 +30,7 @@ export class TokyoKendoDojoWatcherStack extends cdk.Stack {
         BUCKET_NAME: bucket.bucketName,
         LOG_LEVEL: "INFO",
         TOPIC_ARN: topic.topicArn,
-        WEBSITE_URL: "https://www.kantei.go.jp/jp/news/index.html",
+        WEBSITE_URL: "https://www.todoren.com/",
       },
       handler: "index.handler",
       loggingFormat: lambda.LoggingFormat.JSON,
