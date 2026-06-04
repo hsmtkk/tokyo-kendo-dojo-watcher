@@ -17,7 +17,7 @@ function monitorTodoren() {
     });
   } catch (e) {
     console.error('サイトアクセス失敗: ' + e.toString());
-    postToBand('東京都剣道道場連盟サイトへのアクセスに失敗しました');
+    postToBand('[アクセス失敗] 東京都剣道道場連盟サイト #東京道連確認用');
     return;
   }
 
@@ -29,16 +29,16 @@ function monitorTodoren() {
 
   if (!lastModified && !lastETag) {
     // 初回実行時
-    message = '東京都剣道道場連盟サイトに更新なし';
+    message = '[更新なし] 東京都剣道道場連盟サイト #東京道連確認用';
   } else {
     // 更新判定
     const isModifiedChanged = currentModified && (currentModified !== lastModified);
     const isETagChanged = currentETag && (currentETag !== lastETag);
 
     if (isModifiedChanged || isETagChanged) {
-      message = '東京都剣道道場連盟サイトに更新あり';
+      message = '[更新あり] 東京都剣道道場連盟サイト #東京道連確認用';
     } else {
-      message = '東京都剣道道場連盟サイトに更新なし';
+      message = '[更新なし] 東京都剣道道場連盟サイト #東京道連確認用';
     }
   }
 
